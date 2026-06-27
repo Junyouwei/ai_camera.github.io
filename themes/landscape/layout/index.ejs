@@ -6,6 +6,18 @@ var techStackSections = [
 	{ key: 'foundation', title: 'C++ / Python / Linux' }
 ];
 var latestPosts = site.posts.sort('date', -1).limit(8);
+var homepageContact = Object.assign({
+	title: '联系方式',
+	summary: '欢迎交流高通AI Camera、GStreamer、CAMX/CHI、QNN 推理部署、DMA-BUF/GBM 零拷贝与嵌入式视觉系统相关问题。',
+	email_label: '技术邮箱',
+	email: 'nancy2025mika@gmail.com',
+	github_label: 'GitHub',
+	github_name: 'Junyouwei',
+	github_url: 'https://github.com/Junyouwei',
+	site_label: 'AI Camera 专题站',
+	site_name: 'AI Camera Development',
+	site_url: 'https://junyouwei.github.io/ai_camera.github.io/'
+}, config.homepage_contact || {});
 %>
 
 <style>
@@ -220,6 +232,30 @@ var latestPosts = site.posts.sort('date', -1).limit(8);
 		font-size: 12px;
 	}
 
+	.home-portal-contact-summary {
+		max-width: 860px;
+		margin-bottom: 14px !important;
+	}
+
+	.home-portal-contact-list {
+		margin: 0;
+		padding-left: 18px;
+		color: #44546b;
+	}
+
+	.home-portal-contact-list li + li {
+		margin-top: 8px;
+	}
+
+	.home-portal-contact-list a {
+		color: #1f4b7a;
+		text-decoration: none;
+	}
+
+	.home-portal-contact-list a:hover {
+		text-decoration: underline;
+	}
+
 	@media screen and (max-width: 900px) {
 		.home-portal-grid {
 			grid-template-columns: 1fr;
@@ -313,6 +349,24 @@ var latestPosts = site.posts.sort('date', -1).limit(8);
 								<span class="home-portal-date"><%= date(post.date, 'YYYY-MM-DD') %></span>
 							</li>
 						<% }) %>
+					</ul>
+				</section>
+
+				<section class="home-portal-card home-portal-card--full">
+					<h3><%= homepageContact.title %></h3>
+					<% if (homepageContact.summary) { %>
+						<p class="home-portal-contact-summary"><%= homepageContact.summary %></p>
+					<% } %>
+					<ul class="home-portal-contact-list">
+						<% if (homepageContact.email) { %>
+							<li><strong><%= homepageContact.email_label %>：</strong><a href="mailto:<%= homepageContact.email %>"><%= homepageContact.email %></a></li>
+						<% } %>
+						<% if (homepageContact.github_url && homepageContact.github_name) { %>
+							<li><strong><%= homepageContact.github_label %>：</strong><a href="<%= homepageContact.github_url %>" target="_blank" rel="noopener"><%= homepageContact.github_name %></a></li>
+						<% } %>
+						<% if (homepageContact.site_url && homepageContact.site_name) { %>
+							<li><strong><%= homepageContact.site_label %>：</strong><a href="<%= homepageContact.site_url %>" target="_blank" rel="noopener"><%= homepageContact.site_name %></a></li>
+						<% } %>
 					</ul>
 				</section>
 			</div>

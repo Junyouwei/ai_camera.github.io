@@ -11,6 +11,9 @@
         </h2>
       <% } %>
       <% if (config.homepage_intro) { %>
+        <% var homepageContact = Object.assign({
+          email: 'nancy2025mika@gmail.com'
+        }, config.homepage_contact || {}); %>
         <div id="homepage-intro">
           <% if (config.homepage_intro.summary) { %>
             <p class="homepage-intro-summary"><%= config.homepage_intro.summary %></p>
@@ -22,10 +25,11 @@
               <% }); %>
             </div>
           <% } %>
-          <% if (config.homepage_intro.contact_email) { %>
+          <% var homepageContactEmail = homepageContact.email || config.homepage_intro.contact_email; %>
+          <% if (homepageContactEmail) { %>
             <p class="homepage-intro-contact">
-              <span class="homepage-intro-contact-label"><%= config.homepage_intro.contact_label || 'Contact' %>:</span>
-              <a href="mailto:<%= config.homepage_intro.contact_email %>"><%= config.homepage_intro.contact_email %></a>
+              <span class="homepage-intro-contact-label"><%= config.homepage_intro.contact_label || 'Email' %>:</span>
+              <a href="mailto:<%= homepageContactEmail %>"><%= homepageContactEmail %></a>
             </p>
           <% } %>
         </div>
