@@ -1,4 +1,4 @@
-title: AI Camera Development
+title: 高通AI Camera Development
 subtitle: AI Camera / GStreamer / CAMX / Qualcomm
 description: AI Camera开发技术点滴总结
 author: Junyouwei
@@ -6,14 +6,26 @@ language: zh-CN
 theme: landscape
 
 homepage_intro:
-  summary: 记录 AI Camera 开发中的调优实践、零拷贝链路与异构计算落地经验。
+  summary: 记录高通 AI Camera 开发中的调优实践、零拷贝链路与异构计算落地经验。
   topics:
     - CAMX 调优
     - GStreamer 调优
     - Zero-Copy / OpenCL / 图像处理 / 性能优化
     - Qualcomm NPU / 性能优化
-  contact_label: Contact
-  contact_email: magang2000g@sina.com.cn
+  contact_label: Email
+  contact_email: nancy2025mika@gmail.com
+
+homepage_contact:
+  title: 联系方式
+  summary: 欢迎交流高通AI Camera、GStreamer、CAMX/CHI、QNN 推理部署、DMA-BUF/GBM 零拷贝与嵌入式视觉系统相关问题。
+  email_label: 技术邮箱
+  email: nancy2025mika@gmail.com
+  github_label: GitHub
+  github_name: Junyouwei
+  github_url: https://github.com/Junyouwei
+  site_label: AI Camera 专题站
+  site_name: AI Camera Development
+  site_url: https://junyouwei.github.io/ai_camera.github.io/
 
 url: https://junyouwei.github.io
 root: /ai_camera.github.io/

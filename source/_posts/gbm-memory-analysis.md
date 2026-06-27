@@ -366,55 +366,7 @@ format / layout 是否完全兼容？
 
 ---
 
-## 12. 对 AI Camera 中间件的架构建议
-
-将“内存类型”作为一等公民纳入模块定义与自动协商。
-
-### 模块定义增加 memory contract
-
-例如让 `input_memory` / `output_memory` 支持 `CPU`、`GBM`、`dma-buf`、`DMABUF-FD` 等描述。
-
-### 自动插入转换节点
-
-当模块不兼容时，由框架显式插入 `transform` / `copy` 节点，并提示性能影响。
-
-### 生成 validation report
-
-在启动 pipeline 前输出：
-
-- 是否具备零拷贝条件；
-- 哪些节点会产生转换；
-- 预期瓶颈位置。
-
-示例：
-
-```json
-{
-  "module": "qtivtransform",
-  "input": {
-    "format": "NV12",
-    "memory": "GBM"
-  },
-  "output": {
-    "format": "NV12",
-    "memory": "GBM"
-  },
-  "constraints": {
-    "stride_aligned": true,
-    "import_dmabuf": true
-  }
-}
-```
-
-这样做的好处：
-
-- 模块组合时可提前判断是否需要 copy/convert；
-- 将隐式性能损耗变成显式设计选择；
-- 便于跨 SoC、跨系统版本维护兼容矩阵。
-
----
-
-## 13. 最终结论与后续动作
+## 12. 最终结论与工程重点
 
 ### 最终结论
 
@@ -431,8 +383,6 @@ GBM 是用户态 buffer 接口；dma-buf fd 是跨设备共享桥梁；DMA drive
 ### 工程重点
 
 将 `memory contract`、buffer metadata、兼容矩阵、验证报告纳入中间件框架。
-
-### 建议后续动作
 
 1. 整理 QCS6490 / QCS8550 常用 pipeline 的 GBM 兼容矩阵。
 2. 统一封装 `GstBuffer metadata dump` 工具，输出 fd、stride、slice height、plane offset。
