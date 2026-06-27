@@ -3,6 +3,17 @@ subtitle: AI Camera / GStreamer / CAMX / Qualcomm
 description: AI Camera开发技术点滴总结
 author: Junyouwei
 language: zh-CN
+theme: landscape
+
+homepage_intro:
+  summary: 记录 AI Camera 开发中的调优实践、零拷贝链路与异构计算落地经验。
+  topics:
+    - CAMX 调优
+    - GStreamer 调优
+    - Zero-Copy / OpenCL / 图像处理 / 性能优化
+    - Qualcomm NPU / 性能优化
+  contact_label: Contact
+  contact_email: magang2000g@sina.com.cn
 
 url: https://junyouwei.github.io
 root: /ai_camera.github.io/
