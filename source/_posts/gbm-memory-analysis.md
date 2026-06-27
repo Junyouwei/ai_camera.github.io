@@ -11,7 +11,7 @@ tags:
 home_section: gstreamer
 ---
 
-**从用户态 buffer 到内核 DMA driver 的数据通路、关键机制与工程排查**
+> **从用户态 buffer 到内核 DMA driver 的数据通路、关键机制与工程排查**
 
 **GBM / dma-buf / DMA**
 
