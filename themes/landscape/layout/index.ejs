@@ -1,0 +1,321 @@
+<%
+var techStackSections = [
+	{ key: 'gstreamer', title: 'GStreamer / GBM / DMA-BUF / OpenCL' },
+	{ key: 'camx', title: 'Qualcomm CAMX / QMMF' },
+	{ key: 'qnn', title: 'Qualcomm QNN' },
+	{ key: 'foundation', title: 'C++ / Python / Linux' }
+];
+var latestPosts = site.posts.sort('date', -1).limit(8);
+%>
+
+<style>
+	#main {
+		float: none;
+		width: 100%;
+		margin: 0;
+	}
+
+	#sidebar {
+		display: none;
+	}
+
+	.home-portal {
+		margin: 36px 0 48px;
+	}
+
+	.home-portal-shell {
+		background: linear-gradient(180deg, #ffffff, #f6f8fb);
+		border: 1px solid #d9e1ea;
+		border-radius: 20px;
+		box-shadow: 0 18px 46px rgba(26, 44, 72, 0.08);
+		overflow: hidden;
+	}
+
+	.home-portal-hero {
+		padding: 26px 30px 22px;
+		background: linear-gradient(135deg, #0f1b2f, #1c3357 62%, #28547f);
+		color: #fff;
+	}
+
+	.home-portal-kicker {
+		margin: 0 0 8px;
+		font-size: 12px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		opacity: 0.7;
+	}
+
+	.home-portal-title {
+		margin: 0;
+		font-size: 32px;
+		line-height: 1.2;
+	}
+
+	.home-portal-summary {
+		max-width: 780px;
+		margin: 12px 0 0;
+		line-height: 1.8;
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	.home-portal-body {
+		padding: 24px;
+	}
+
+	.home-portal-grid {
+		display: grid;
+		grid-template-columns: 1.05fr 1.2fr;
+		gap: 20px;
+	}
+
+	.home-portal-card {
+		padding: 22px 24px;
+		border: 1px solid #dbe3ec;
+		border-radius: 18px;
+		background: #fff;
+	}
+
+	.home-portal-card h3 {
+		margin: 0 0 14px;
+		color: #12233d;
+		font-size: 20px;
+	}
+
+	.home-portal-card p {
+		margin: 0;
+		line-height: 1.8;
+		color: #44546b;
+	}
+
+	.home-portal-card + .home-portal-card {
+		margin-top: 0;
+	}
+
+	.home-portal-card--full {
+		grid-column: 1 / -1;
+	}
+
+	.home-portal-chip-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-top: 14px;
+	}
+
+	.home-portal-chip {
+		display: inline-flex;
+		align-items: center;
+		min-height: 30px;
+		padding: 0 12px;
+		border-radius: 999px;
+		background: #eef3f8;
+		border: 1px solid #d5e0ea;
+		color: #28425f;
+		font-size: 12px;
+	}
+
+	.home-portal-tree {
+		display: grid;
+		gap: 16px;
+	}
+
+	.home-portal-node {
+		padding: 14px 16px;
+		border-left: 3px solid #234468;
+		background: #f8fafc;
+		border-radius: 0 14px 14px 0;
+	}
+
+	.home-portal-node h4 {
+		margin: 0;
+		font-size: 16px;
+		color: #173150;
+	}
+
+	.home-portal-node ul {
+		margin: 10px 0 0;
+		padding-left: 18px;
+		color: #52657e;
+	}
+
+	.home-portal-node li + li {
+		margin-top: 6px;
+	}
+
+	.home-portal-node a {
+		color: #1f4b7a;
+		text-decoration: none;
+	}
+
+	.home-portal-node a:hover {
+		text-decoration: underline;
+	}
+
+	.home-portal-empty {
+		margin-top: 10px;
+		color: #8a98aa;
+		font-size: 13px;
+	}
+
+	.home-portal-projects {
+		margin: 0;
+		padding-left: 18px;
+	}
+
+	.home-portal-projects li + li {
+		margin-top: 8px;
+	}
+
+	.home-portal-note {
+		margin-top: 12px !important;
+		color: #73849a !important;
+		font-size: 13px;
+	}
+
+	.home-portal-list-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 14px;
+	}
+
+	.home-portal-list-head h3 {
+		margin-bottom: 0;
+	}
+
+	.home-portal-list-head a {
+		color: #1f4b7a;
+		text-decoration: none;
+		font-size: 13px;
+	}
+
+	.home-portal-latest {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.home-portal-latest li + li {
+		margin-top: 12px;
+		padding-top: 12px;
+		border-top: 1px solid #edf2f7;
+	}
+
+	.home-portal-latest a {
+		display: inline-block;
+		color: #173150;
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.home-portal-latest a:hover {
+		text-decoration: underline;
+	}
+
+	.home-portal-date {
+		display: block;
+		margin-top: 4px;
+		color: #8392a5;
+		font-size: 12px;
+	}
+
+	@media screen and (max-width: 900px) {
+		.home-portal-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.home-portal {
+			margin-top: 24px;
+		}
+
+		.home-portal-hero {
+			padding: 22px 20px 18px;
+		}
+
+		.home-portal-title {
+			font-size: 26px;
+		}
+
+		.home-portal-body {
+			padding: 16px;
+		}
+
+		.home-portal-card {
+			padding: 18px;
+		}
+	}
+</style>
+
+<section class="home-portal">
+	<div class="home-portal-shell">
+		<header class="home-portal-hero">
+			<p class="home-portal-kicker">Technical Homepage</p>
+			<h2 class="home-portal-title">AI Camera Development</h2>
+			<p class="home-portal-summary"><%= config.homepage_intro && config.homepage_intro.summary ? config.homepage_intro.summary : config.description %></p>
+		</header>
+
+		<div class="home-portal-body">
+			<div class="home-portal-grid">
+				<section class="home-portal-card">
+					<h3>技术定位与简介</h3>
+					<p>聚焦 AI Camera 量产开发中的媒体链路、平台集成、异构计算与性能调优，沉淀可复用的工程经验与问题定位路径。</p>
+					<% if (config.homepage_intro && config.homepage_intro.topics && config.homepage_intro.topics.length) { %>
+						<div class="home-portal-chip-list">
+							<% config.homepage_intro.topics.forEach(function(topic) { %>
+								<span class="home-portal-chip"><%= topic %></span>
+							<% }) %>
+						</div>
+					<% } %>
+				</section>
+
+				<section class="home-portal-card">
+					<h3>技术栈</h3>
+					<div class="home-portal-tree">
+						<% techStackSections.forEach(function(section) { %>
+							<% var sectionPosts = site.posts.find({home_section: section.key}).sort('date', -1).limit(6); %>
+							<div class="home-portal-node">
+								<h4><%= section.title %></h4>
+								<% if (sectionPosts.length) { %>
+									<ul>
+										<% sectionPosts.each(function(post) { %>
+											<li><a href="<%- url_for(post.path) %>"><%= post.title || '(no title)' %></a></li>
+										<% }) %>
+									</ul>
+								<% } else { %>
+									<p class="home-portal-empty">当前还没有归类文章。后续给文章设置对应的 <code>home_section</code> 即可显示到这里。</p>
+								<% } %>
+							</div>
+						<% }) %>
+					</div>
+				</section>
+
+				<section class="home-portal-card">
+					<h3>核心项目</h3>
+					<ul class="home-portal-projects">
+						<li>AI Camera Middleware</li>
+						<li>CAMX / CHI 工程能力</li>
+					</ul>
+					<p class="home-portal-note">该部分暂时保留为项目入口，后续可补充架构说明、职责边界与关键里程碑。</p>
+				</section>
+
+				<section class="home-portal-card">
+					<div class="home-portal-list-head">
+						<h3>最新技术文章</h3>
+						<a href="<%- url_for(config.archive_dir) %>">查看归档</a>
+					</div>
+					<ul class="home-portal-latest">
+						<% latestPosts.each(function(post) { %>
+							<li>
+								<a href="<%- url_for(post.path) %>"><%= post.title || '(no title)' %></a>
+								<span class="home-portal-date"><%= date(post.date, 'YYYY-MM-DD') %></span>
+							</li>
+						<% }) %>
+					</ul>
+				</section>
+			</div>
+		</div>
+	</div>
+</section>

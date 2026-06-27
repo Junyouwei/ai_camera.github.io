@@ -1,0 +1,139 @@
+<header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="<%- url_for() %>" id="logo"><%= config.title %></a>
+      </h1>
+      <% if (theme.subtitle || config.subtitle){ %>
+        <h2 id="subtitle-wrap">
+          <a href="<%- url_for() %>" id="subtitle"><%= theme.subtitle || config.subtitle %></a>
+        </h2>
+      <% } %>
+      <% if (config.homepage_intro) { %>
+        <div id="homepage-intro">
+          <% if (config.homepage_intro.summary) { %>
+            <p class="homepage-intro-summary"><%= config.homepage_intro.summary %></p>
+          <% } %>
+          <% if (config.homepage_intro.topics && config.homepage_intro.topics.length) { %>
+            <div class="homepage-intro-topics" aria-label="Homepage topics">
+              <% config.homepage_intro.topics.forEach(function(topic) { %>
+                <span class="homepage-intro-topic"><%= topic %></span>
+              <% }); %>
+            </div>
+          <% } %>
+          <% if (config.homepage_intro.contact_email) { %>
+            <p class="homepage-intro-contact">
+              <span class="homepage-intro-contact-label"><%= config.homepage_intro.contact_label || 'Contact' %>:</span>
+              <a href="mailto:<%= config.homepage_intro.contact_email %>"><%= config.homepage_intro.contact_email %></a>
+            </p>
+          <% } %>
+        </div>
+      <% } %>
+      <style>
+        #header-title {
+          height: auto;
+          width: 100%;
+          margin-top: 0;
+          padding: 84px 24px 88px;
+          box-sizing: border-box;
+          transform: translateY(-50%);
+        }
+
+        #homepage-intro {
+          max-width: 780px;
+          margin: 18px auto 0;
+          padding: 14px 18px;
+          text-align: left;
+          color: #fff;
+          background: linear-gradient(180deg, rgba(8, 14, 23, 0.78), rgba(6, 10, 18, 0.88));
+          border: 1px solid rgba(143, 197, 255, 0.14);
+          border-radius: 12px;
+          box-shadow: 0 16px 32px rgba(0, 0, 0, 0.26);
+          backdrop-filter: blur(6px);
+        }
+
+        .homepage-intro-summary,
+        .homepage-intro-contact {
+          margin: 0;
+          line-height: 1.7;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+        }
+
+        .homepage-intro-summary {
+          font-weight: 500;
+        }
+
+        .homepage-intro-topics {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin: 10px 0 8px;
+        }
+
+        .homepage-intro-topic {
+          display: inline-flex;
+          align-items: center;
+          min-height: 28px;
+          padding: 0 11px;
+          border: 1px solid rgba(143, 197, 255, 0.18);
+          border-radius: 999px;
+          background: rgba(21, 36, 58, 0.58);
+          color: rgba(255, 255, 255, 0.92);
+          font-size: 12px;
+          line-height: 1.4;
+          white-space: nowrap;
+        }
+
+        .homepage-intro-contact a {
+          color: #fff;
+          text-decoration: none;
+          font-family: Menlo, Monaco, Consolas, monospace;
+          letter-spacing: 0.02em;
+        }
+
+        .homepage-intro-contact-label {
+          display: inline-block;
+          margin-right: 6px;
+          color: rgba(143, 197, 255, 0.92);
+        }
+
+        @media screen and (max-width: 768px) {
+          #header-title {
+            padding: 72px 16px 76px;
+          }
+
+          #homepage-intro {
+            padding: 14px 16px;
+          }
+
+          .homepage-intro-topic {
+            white-space: normal;
+          }
+        }
+      </style>
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        <% for (var i in theme.menu){ %>
+          <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"><%= i %></a>
+        <% } %>
+      </nav>
+      <nav id="sub-nav">
+        <% if (theme.links) { %>
+          <% for (const i in theme.links) {%>
+            <a class="nav-icon" href="<%- url_for(theme.links[i]) %>"><span class="fa fa-<%= i %>"></span></a>
+          <% } %>
+        <% } %>
+        <% if (theme.rss){ %>
+          <a class="nav-icon" href="<%- url_for(theme.rss) %>" title="<%= __('rss_feed') %>"><span class="fa fa-rss"></span></a>
+        <% } %>
+        <a class="nav-icon nav-search-btn" title="<%= __('search') %>"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <%- search_form({button: '&#xF002;', text: __('search')}) %>
+      </div>
+    </div>
+  </div>
+</header>
