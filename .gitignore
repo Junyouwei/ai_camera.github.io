@@ -4,3 +4,10 @@ db.json
 .deploy_git/
 .DS_Store
 *.log
+
+# Local SSH/private key material should never be committed
+.ssh/
+id_ed25519*
+id_rsa*
+*.pem
+:USERPROFILE*
